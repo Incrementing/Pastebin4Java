@@ -2,7 +2,7 @@
 Paste to pastebin inside of a java application. 
 
 Using Pastebin4Java:<br>
-1) Create new class file (eg: Pastebin.class) in a new package (eg: api.incrementing.pw).<br>
+1) Create new class file (eg: Pastebin.java) in a new package (eg: api.incrementing.pw).<br>
 2) Paste in the code (https://goo.gl/Z7OpJh).<br>
 3) Do the following to upload to pastebin:
 ```java
