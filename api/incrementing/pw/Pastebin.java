@@ -65,8 +65,22 @@ public class Pastebin {
                         "&api_paste_code=" + this.f +
                         "&api_user_key=" + this.b;
 
-        //System.out.print(Utils.sendHTTP(apiFile + apiArgs));
         Utils.sendHTTP(apiFile + apiArgs);
+    }
+    
+    public String makePost() {
+        String apiFile = "http://incrementing.pw/pastebin.php";
+        String apiArgs =
+                "?api_option=paste" +
+                        "&api_paste_private=" + this.c +
+                        "&api_paste_name=" + this.e +
+                        "&api_paste_expire_date=N" /**N = Never**/ +
+                        "&api_paste_format=" + this.d +
+                        "&api_dev_key=" + this.a +
+                        "&api_paste_code=" + this.f +
+                        "&api_user_key=" + this.b;
+
+        return Utils.sendHTTP(apiFile + apiArgs);
     }
 
     static class Utils {
@@ -114,7 +128,7 @@ public class Pastebin {
         }
     }
 
-    static enum Visibility {
+    public static enum Visibility {
         PUBLIC, UNLISTED, PRIVATE;
     }
 }
