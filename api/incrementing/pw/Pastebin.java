@@ -20,6 +20,7 @@ package api.incrementing.pw;
 
 import java.io.*;
 import java.net.*;
+import java.util.logging.Logger;
 
 public class Pastebin {
 
@@ -34,25 +35,14 @@ public class Pastebin {
 
     /*Note: If the userKey is wrong the post will still be made but as a guest (Post still counts towards your daily post limit).*/
     public Pastebin(String devKey, String userKey, Visibility visi, String format, String name, String text) {
-        String visi_str = "";
-        if (visi == Visibility.PUBLIC) {
-            visi_str = "0";
-        }
-        else if (visi == Visibility.UNLISTED) {
-            visi_str = "1";
-        }
-        else if (visi == Visibility.PRIVATE) {
-            visi_str = "2";
-        }
-
         this.a = Utils.encode(devKey);
         this.b = Utils.encode(userKey);
-        this.c = Utils.encode(visi_str);
+        this.c = Utils.encode(visi.getId());
         this.d = Utils.encode(format);
         this.e = Utils.encode(name);
         this.f = Utils.encode(text);
     }
-    
+
     public String makePost() {
         String apiFile = "http://incrementing.pw/pastebin.php";
         String apiArgs =
@@ -71,7 +61,12 @@ public class Pastebin {
     static class Utils {
 
         public static String encode(String s) {
-            return URLEncoder.encode(s);
+            try {
+                return URLEncoder.encode(s, "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                System.out.println("WARNING: There was an UnsupportedEncodingException encoding failed, using urlencoded string.");
+                return s;
+            }
         }
 
         public static String sendHTTP(String s) {
@@ -114,6 +109,16 @@ public class Pastebin {
     }
 
     public static enum Visibility {
-        PUBLIC, UNLISTED, PRIVATE;
+        PUBLIC(0), UNLISTED(1), PRIVATE(2);
+
+        int id;
+
+        Visibility(int i) {
+            id = i;
+        }
+
+        public String getId() {
+            return String.valueOf(id);
+        }
     }
 }
