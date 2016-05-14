@@ -44,7 +44,7 @@ public class Pastebin {
     }
 
     public String makePost() {
-        String apiFile = "http://incrementing.pw/pastebin.php";
+        String apiFile = "http://pastebin.com/api/api_post.php";
         String apiArgs =
                 "?api_option=paste" +
                         "&api_paste_private=" + this.c +
